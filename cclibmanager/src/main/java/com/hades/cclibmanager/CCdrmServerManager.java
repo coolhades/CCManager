@@ -2,7 +2,6 @@ package com.hades.cclibmanager;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.util.Log;
 
 import com.bokecc.sdk.mobile.drm.DRMServer;
 import com.bokecc.sdk.mobile.util.DWSdkStorage;
@@ -22,7 +21,6 @@ public class CCdrmServerManager {
     private DRMServer drmServer;
 
     private int drmServerPort;
-
 
 
     // CC视频帐号信息 账户信息  加密账号
@@ -85,7 +83,7 @@ public class CCdrmServerManager {
 
     public void stopDrmServer() {
         if (drmServer != null) {
-            Log.d("TAG-drmServer", drmServer.toString());
+//            Log.d("TAG-drmServer", drmServer.toString());
             drmServer.stop();
         }
     }
@@ -95,6 +93,7 @@ public class CCdrmServerManager {
         // 启动DRMServer
         if (drmServer == null) {
             drmServer = new DRMServer();
+            drmServer.setRequestRetryCount(10);
         }
 
         try {
@@ -104,7 +103,6 @@ public class CCdrmServerManager {
             e.printStackTrace();
         }
 
-        Log.d("TAG-drmServer", drmServer.toString());
 
     }
 
@@ -113,6 +111,7 @@ public class CCdrmServerManager {
     * auther Hades
     * 描述 MainActivity 中设置
     **/
+    @Deprecated
     private void initDWStorage(final Context applicationContext) {
         DWSdkStorage myDWSdkStorage = new DWSdkStorage() {
             private SharedPreferences sp = applicationContext.getSharedPreferences("mystorage", MODE_PRIVATE);
